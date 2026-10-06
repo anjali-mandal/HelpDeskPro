@@ -3,6 +3,7 @@ import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.database.connection import engine, SessionLocal, ensure_schema
 from app.database.base import Base
@@ -89,6 +90,22 @@ async def lifespan(application: FastAPI):
 
 
 app = FastAPI(title="HelpDeskPro API", lifespan=lifespan)
+
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv(
+        "FRONTEND_URL",
+        "http://localhost:5174,http://127.0.0.1:5174"
+    ).split(",")
+    if origin.strip()
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 app.include_router(auth.router)
