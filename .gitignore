@@ -1,0 +1,30 @@
+backend/.env
+backend/helpdeskpro.db
+backend/uploads/*
+frontend/node_modules/
+frontend/dist/
+__pycache__/
+*.pyc
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Database and uploads
+*.db
+*.sqlite
+backend/uploads/*
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Logs
+*.log
+
+# OS/editor
+.DS_Store
+.vscode/
